@@ -1,10 +1,15 @@
 package com.capgemini.jstk.jpa.demo.persistence.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -23,10 +28,16 @@ public class VisitEntity {
     @Column(nullable = false)
     private LocalDateTime time;
 
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "VISIT_ID")
     private Set<MedicalTreatmentEntity> medicalTreatments;
 
+    @ManyToOne
+    @JoinColumn(name = "DOCTOR_ID")
     private DoctorEntity doctor;
 
+    @ManyToOne
+    @JoinColumn(name = "PATIENT_ID")
     private PatientEntity patient;
 
     public Long getId() {
