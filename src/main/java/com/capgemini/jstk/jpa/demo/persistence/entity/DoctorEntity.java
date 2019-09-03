@@ -8,9 +8,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+@NamedQueries({
+        @NamedQuery(name = "DoctorEntity.findAll", query = "SELECT d FROM DoctorEntity d"),
+        @NamedQuery(name = "DoctorEntity.deleteByLastName", query = "DELETE FROM DoctorEntity d WHERE d.lastName = :lastName")
+})
 @Entity
 @Table(name = "DOCTOR")
 public class DoctorEntity {

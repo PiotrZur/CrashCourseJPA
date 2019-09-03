@@ -6,10 +6,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
 
+@NamedQueries({
+        @NamedQuery(name = "PatientEntity.findByLastName", query = "SELECT p FROM PatientEntity p WHERE p.lastName = :lastName")
+})
 @Entity
 @Table(name = "PATIENT")
 public class PatientEntity {
@@ -93,5 +98,13 @@ public class PatientEntity {
 
     public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public AddressEntity getAddress() {
+        return address;
+    }
+
+    public void setAddress(AddressEntity address) {
+        this.address = address;
     }
 }
