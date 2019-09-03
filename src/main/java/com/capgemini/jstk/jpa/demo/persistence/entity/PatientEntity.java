@@ -33,6 +33,8 @@ public class PatientEntity {
     @Column(nullable = false)
     private LocalDate dateOfBirth;
 
+    private AddressEntity address;
+
     public Long getId() {
         return id;
     }
