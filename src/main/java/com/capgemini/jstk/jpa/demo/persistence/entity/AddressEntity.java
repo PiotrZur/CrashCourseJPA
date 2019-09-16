@@ -4,7 +4,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.persistence.Version;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "ADDRESS")
@@ -21,6 +25,13 @@ public class AddressEntity {
     private String secondAddressLine;
 
     private String postalCode;
+
+    @Version
+    private Long version;
+
+    private LocalDateTime createDate;
+
+    private LocalDateTime updateDate;
 
     public Long getId() {
         return id;
@@ -60,5 +71,40 @@ public class AddressEntity {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
+    }
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
+    public LocalDateTime getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(LocalDateTime createDate) {
+        this.createDate = createDate;
+    }
+
+    public LocalDateTime getUpdateDate() {
+        return updateDate;
+    }
+
+    public void setUpdateDate(LocalDateTime updateDate) {
+        this.updateDate = updateDate;
+    }
+
+    @PrePersist
+    public void createDate() {
+        this.createDate = LocalDateTime.now();
+        this.updateDate = createDate;
+    }
+
+    @PreUpdate
+    public void updateDate() {
+        this.updateDate = LocalDateTime.now();
     }
 }
