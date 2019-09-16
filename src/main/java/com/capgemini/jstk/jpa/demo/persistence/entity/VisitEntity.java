@@ -20,23 +20,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "VISIT")
-public class VisitEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class VisitEntity extends AbstractEntity {
 
     private String description;
 
     @Column(nullable = false)
     private LocalDateTime time;
-
-    @Version
-    private Long version;
-
-    private LocalDateTime createDate;
-
-    private LocalDateTime updateDate;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "VISIT_ID")
@@ -49,14 +38,6 @@ public class VisitEntity {
     @ManyToOne
     @JoinColumn(name = "PATIENT_ID")
     private PatientEntity patient;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getDescription() {
         return description;
@@ -96,40 +77,5 @@ public class VisitEntity {
 
     public void setPatient(PatientEntity patient) {
         this.patient = patient;
-    }
-
-    public Long getVersion() {
-        return version;
-    }
-
-    public void setVersion(Long version) {
-        this.version = version;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public LocalDateTime getUpdateDate() {
-        return updateDate;
-    }
-
-    public void setUpdateDate(LocalDateTime updateDate) {
-        this.updateDate = updateDate;
-    }
-
-    @PrePersist
-    public void createDate() {
-        this.createDate = LocalDateTime.now();
-        this.updateDate = createDate;
-    }
-
-    @PreUpdate
-    public void updateDate() {
-        this.updateDate = LocalDateTime.now();
     }
 }
